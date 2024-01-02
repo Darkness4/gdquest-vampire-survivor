@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://c85bbrjoki712"]
+
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_13xm7"]
+[ext_resource type="Script" path="res://Player.cs" id="1_s8jnf"]
+[ext_resource type="PackedScene" uid="uid://bbt5m5fdxair2" path="res://gun.tscn" id="3_j2dcm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_teuxs"]
+radius = 28.0713
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnmol"]
+radius = 31.1448
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kc87"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0kx7"]
+bg_color = Color(0.262745, 0.698039, 0.407843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_s8jnf")
+
+[node name="HappyBoo" parent="." instance=ExtResource("1_13xm7")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_teuxs")
+one_way_collision = true
+
+[node name="Gun" parent="." instance=ExtResource("3_j2dcm")]
+position = Vector2(0, -34)
+
+[node name="HitBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_hnmol")
+debug_color = Color(0.988235, 0, 0.321569, 0.419608)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_top = -139.0
+offset_right = 107.0
+offset_bottom = -112.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_4kc87")
+theme_override_styles/fill = SubResource("StyleBoxFlat_r0kx7")
+value = 70.0
+show_percentage = false

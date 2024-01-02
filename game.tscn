@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://cljb0ar67hnu"]
+
+[ext_resource type="Script" path="res://Game.cs" id="1_3cwv5"]
+[ext_resource type="PackedScene" uid="uid://c85bbrjoki712" path="res://player.tscn" id="1_fq0nm"]
+[ext_resource type="PackedScene" uid="uid://cm4trws5e41uy" path="res://pine_tree.tscn" id="2_2pdgx"]
+[ext_resource type="PackedScene" uid="uid://bjw5ld11bcpkn" path="res://mob.tscn" id="3_lhuty"]
+
+[sub_resource type="Curve2D" id="Curve2D_fbene"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -69, -56, 0, 0, 0, 0, 2037, -61, 0, 0, 0, 0, 2042, 1176, 0, 0, 0, 0, -67, 1176, 0, 0, 0, 0, -69, -56)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_3cwv5")
+_mobFactory = ExtResource("3_lhuty")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 200
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1964.0
+offset_bottom = 1122.0
+
+[node name="Player" parent="." instance=ExtResource("1_fq0nm")]
+position = Vector2(960, 562)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-960, -562)
+curve = SubResource("Curve2D_fbene")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-69, -56)
+rotation = -0.00237416
+
+[node name="PineTree" parent="." instance=ExtResource("2_2pdgx")]
+position = Vector2(531, 502)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="HealthDepleted" from="Player" to="." method="OnPlayerHealthDepleted"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

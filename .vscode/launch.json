@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "configurations": [
+    {
+      "name": "Godot Debug",
+      "type": "godot-mono",
+      "request": "launch",
+      "mode": "executable",
+      "debugServer": 6006,
+      "executable": "godot4",
+      "executableArguments": [
+        "--path",
+        "${workspaceRoot}"
+      ]
+    }
+  ]
+}
