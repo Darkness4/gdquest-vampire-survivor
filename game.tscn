@@ -74,5 +74,4 @@ position = Vector2(531, 502)
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="HealthDepleted" from="Player" to="." method="OnPlayerHealthDepleted"]
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
